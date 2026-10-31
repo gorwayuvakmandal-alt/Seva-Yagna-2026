@@ -59,7 +59,7 @@ export default function AttendanceForm() {
   return <div className="attendance-layout"><section className="panel main-panel"><div className="panel-head"><div className="step-icon">01</div><div><h2>Attendance entry</h2><p className="muted">One Yuvak at a time · fast check-in</p></div></div>
     <form className="form-fields" onSubmit={submit}>
       <label htmlFor="sector">Xetra <span className="required">*</span></label>
-      <select id="sector" ref={sectorRef} required value={sector} onChange={e => { setSector(e.target.value as Sector | ""); setMandal(""); setName(""); setSelectedId(null); setNotice(null); }}>
+      <select id="sector" ref={sectorRef} autoFocus required value={sector} onChange={e => { setSector(e.target.value as Sector | ""); setMandal(""); setName(""); setSelectedId(null); setNotice(null); }}>
         <option value="">Select Xetra</option>{Object.keys(MANDALS).map(s => <option key={s} value={s}>{s}</option>)}
       </select>
       <label htmlFor="mandal">Mandal <span className="required">*</span></label>
