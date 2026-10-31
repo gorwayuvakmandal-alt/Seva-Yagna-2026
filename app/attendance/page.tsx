@@ -15,7 +15,7 @@ export default function AttendancePage() {
               <p className="muted">Select the Xetra and Mandal, then record the Yuvak&apos;s presence.</p>
             </div>
             <div className="live-pill">
-              <span className="live-dot" />Live registration
+              <span className="live-dot" />Live Attendance
             </div>
           </div>
           <AttendanceForm />
