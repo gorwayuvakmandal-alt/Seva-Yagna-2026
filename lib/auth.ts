@@ -3,7 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function requireOperator() {
   const db = await createClient();
-  const { data: { claims }, error } = await db.auth.getClaims();
+  const { data, error } = await db.auth.getClaims();
+  const claims = data?.claims;
   if (error || !claims?.sub) redirect("/login");
   const { data: operator, error: profileError } = await db
     .from("app_users")

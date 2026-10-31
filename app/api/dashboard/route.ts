@@ -3,7 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 export const dynamic = "force-dynamic";
 export async function GET() {
   const db = await createClient();
-  const { data: { claims } } = await db.auth.getClaims();
+  const { data: claimsData } = await db.auth.getClaims();
+  const claims = claimsData?.claims;
   if (!claims?.sub) return NextResponse.json({ error: "Please sign in." }, { status: 401 });
   const { data: operator } = await db.from("app_users").select("user_id").eq("user_id", claims.sub).maybeSingle();
   if (!operator) return NextResponse.json({ error: "Forbidden" }, { status: 403 });

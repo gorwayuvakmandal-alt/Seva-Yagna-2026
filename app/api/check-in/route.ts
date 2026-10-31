@@ -5,7 +5,8 @@ import { EVENT_ID, MANDALS, mandalId, type Sector } from "@/lib/mandals";
 export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   const db = await createClient();
-  const { data: { claims }, error: authError } = await db.auth.getClaims();
+  const { data: claimsData, error: authError } = await db.auth.getClaims();
+  const claims = claimsData?.claims;
   if (authError || !claims?.sub) return NextResponse.json({ error: "Please sign in." }, { status: 401 });
   const { data: operator } = await db.from("app_users").select("user_id").eq("user_id", claims.sub).maybeSingle();
   if (!operator) return NextResponse.json({ error: "You are not authorized." }, { status: 403 });
