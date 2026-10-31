@@ -8,17 +8,19 @@ export default function AttendancePage() {
     <>
       <Nav />
       <main className="container">
-        <div className="page-heading">
-          <div>
-            <p className="eyebrow">SEVA YAGNA 2026</p>
-            <h1>Mark Yuvak Attendance</h1>
-            <p className="muted">Select the Xetra and Mandal, then record the Yuvak's presence.</p>
+        <div className="attendance-page-shell">
+          <div className="page-heading">
+            <div>
+              <p className="eyebrow">SEVA YAGNA 2026</p>
+              <h1>Mark Yuvak Attendance</h1>
+              <p className="muted">Select the Xetra and Mandal, then record the Yuvak&apos;s presence.</p>
+            </div>
+            <div className="live-pill">
+              <span className="live-dot" />Live registration
+            </div>
           </div>
-          <div className="live-pill">
-            <span className="live-dot" />Live registration
-          </div>
+          <AttendanceForm />
         </div>
-        <AttendanceForm />
       </main>
     </>
   );
