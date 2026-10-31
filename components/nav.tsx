@@ -8,14 +8,19 @@ export default function Nav() {
 
   return (
     <header className="topbar">
+      {/* Sacred Invocatory Header */}
+      <div className="sacred-banner">
+        <div className="sacred-shloka">|| shri swaminarayano vijayate ||</div>
+        <div className="sacred-title">BAPS Swaminarayan Mandir, Atladara - Vadodara</div>
+        <div className="sacred-subtitle">Seva Yagna - 2026</div>
+      </div>
+
+      {/* Main Navigation Bar */}
       <div className="nav-wrap">
-        <Link className="brand" href="/attendance">
-          <span className="brand-symbol">SY</span>
-          <span>
-            <strong>Seva Yagna 2026</strong>
-            <small>Yuvak Attendance Portal</small>
-          </span>
-        </Link>
+        <div className="nav-portal-label">
+          <span className="live-dot" style={{ display: "inline-block", marginRight: "7px" }} />
+          <span>Yuvak Attendance Portal</span>
+        </div>
         <nav className="nav-links" aria-label="Main navigation">
           <Link className={pathname === "/attendance" ? "active" : ""} href="/attendance">
             <ClipboardCheck size={17} /> <span>Attendance</span>

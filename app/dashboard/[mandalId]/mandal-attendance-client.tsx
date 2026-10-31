@@ -19,6 +19,8 @@ type Mandal = {
 export default function MandalAttendanceClient({ mandalId }: { mandalId: string }) {
   const [mandal, setMandal] = useState<Mandal | null>(null);
   const [yuvaks, setYuvaks] = useState<Yuvak[]>([]);
+  const [registered, setRegistered] = useState<number>(0);
+  const [attendancePct, setAttendancePct] = useState<number>(0);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -33,6 +35,8 @@ export default function MandalAttendanceClient({ mandalId }: { mandalId: string 
       const data = await response.json();
       setMandal(data.mandal);
       setYuvaks(data.yuvaks ?? []);
+      setRegistered(Number(data.registered || 0));
+      setAttendancePct(Number(data.attendancePct || 0));
       setUpdated(
         new Date(data.updatedAt).toLocaleTimeString("en-IN", { timeStyle: "medium" })
       );
@@ -135,23 +139,69 @@ export default function MandalAttendanceClient({ mandalId }: { mandalId: string 
             </p>
           </div>
 
-          <div
-            style={{
-              background: "#ecfdf5",
-              border: "1px solid #a7f3d0",
-              padding: "10px 18px",
-              borderRadius: "14px",
-              display: "flex",
-              alignItems: "center",
-              gap: "14px",
-            }}
-          >
-            <div style={{ textAlign: "right" }}>
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
+            <div
+              style={{
+                background: "#f8fafc",
+                border: "1px solid var(--line)",
+                padding: "10px 16px",
+                borderRadius: "14px",
+                textAlign: "right",
+              }}
+            >
+              <div style={{ fontSize: "11px", color: "var(--muted)", fontWeight: 700, letterSpacing: "0.5px" }}>
+                REGISTERED
+              </div>
+              <div style={{ fontSize: "26px", fontWeight: 850, color: "var(--ink)", lineHeight: 1.1 }}>
+                {registered}
+              </div>
+            </div>
+
+            <div
+              style={{
+                background: "#ecfdf5",
+                border: "1px solid #a7f3d0",
+                padding: "10px 18px",
+                borderRadius: "14px",
+                textAlign: "right",
+              }}
+            >
               <div style={{ fontSize: "11px", color: "#047857", fontWeight: 700, letterSpacing: "0.5px" }}>
                 TOTAL PRESENT
               </div>
-              <div style={{ fontSize: "30px", fontWeight: 850, color: "#047857", lineHeight: 1 }}>
+              <div style={{ fontSize: "26px", fontWeight: 850, color: "#047857", lineHeight: 1.1 }}>
                 {yuvaks.length}
+              </div>
+            </div>
+
+            <div
+              style={{
+                background: attendancePct >= 50 ? "#ecfdf5" : "#fff7ed",
+                border: `1px solid ${attendancePct >= 50 ? "#a7f3d0" : "#ffedd5"}`,
+                padding: "10px 16px",
+                borderRadius: "14px",
+                textAlign: "right",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "11px",
+                  color: attendancePct >= 50 ? "#047857" : "#c2410c",
+                  fontWeight: 700,
+                  letterSpacing: "0.5px",
+                }}
+              >
+                TURNOUT %
+              </div>
+              <div
+                style={{
+                  fontSize: "26px",
+                  fontWeight: 850,
+                  color: attendancePct >= 50 ? "#047857" : "#c2410c",
+                  lineHeight: 1.1,
+                }}
+              >
+                {attendancePct}%
               </div>
             </div>
           </div>

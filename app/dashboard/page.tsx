@@ -10,7 +10,6 @@ export default function DashboardPage() {
       <main className="container">
         <div className="page-heading">
           <div>
-            <p className="eyebrow">SEVA YAGNA 2026</p>
             <h1>Attendance Dashboard</h1>
             <p className="muted">Xetra-wise and Mandal-wise registration comparison.</p>
           </div>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { REGISTERED_TARGETS } from "@/lib/mandals";
 
 export const dynamic = "force-dynamic";
 
@@ -40,11 +41,16 @@ export async function GET(
     checkedInAt: item.checked_in_at,
   }));
 
+  const registered = REGISTERED_TARGETS[mandalId] ?? 0;
+  const attendancePct = registered > 0 ? Number(((yuvaks.length / registered) * 100).toFixed(1)) : 0;
+
   return NextResponse.json(
     {
       mandal,
       yuvaks,
       count: yuvaks.length,
+      registered,
+      attendancePct,
       updatedAt: new Date().toISOString(),
     },
     { headers: { "Cache-Control": "no-store" } }
